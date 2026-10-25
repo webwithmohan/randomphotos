@@ -1,6 +1,7 @@
 
 const express = require('express');
 const photos = require('./generatePhotos');
+const auth = require('./auth');
 const app = express();
 require('dotenv').config();
 
@@ -12,8 +13,10 @@ require('dotenv').config();
 
 
 
+
+
 app.use(express.json());
-app.use("/photos",async(req,res) => {
+app.use("/photos",auth,async(req,res) => {
     try{
         let p=await photos();
         res.status(200).json(p)
